@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Главная",
+    "link": "/",
+    "childrenItems": []
+  },
+  {
+    "name": "Задачи",
+    "link": "/tasks",
+    "childrenItems": [
+      {
+        "name": "Все задачи",
+        "link": "/tasks/all",
+        "childrenItems": [
+          {
+            "name": "Все",
+            "link": "/tasks/all",
+            "childrenItems": []
+          },
+          {
+            "name": "Не выполнены",
+            "link": "/tasks/all/notfinished",
+            "childrenItems": []
+          },
+          {
+            "name": "Закрытые",
+            "link": "/tasks/all/closed",
+            "childrenItems": [
+              {
+                "name": "За ненадобностью",
+                "link": "/tasks/all/unnecessary",
+                "childrenItems": []
+              },
+              {
+                "name": "На паузе",
+                "link": "/tasks/all/paused",
+                "childrenItems": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Мои задачи",
+        "link": "/tasks/mine",
+        "childrenItems": [
+          {
+            "name": "Все",
+            "link": "/tasks/mine/all",
+            "childrenItems": []
+          },
+          {
+            "name": "Не выполнены",
+            "link": "/tasks/mine/notfinished",
+            "childrenItems": []
+          },
+          {
+            "name": "Закрытые",
+            "link": "/tasks/mine/closed",
+            "childrenItems": [
+              {
+                "name": "За ненадобностью",
+                "link": "/tasks/mine/unnecessary",
+                "childrenItems": []
+              },
+              {
+                "name": "На паузе",
+                "link": "/tasks/mine/paused",
+                "childrenItems": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Задачи от меня",
+        "link": "/tasks/fromme",
+        "childrenItems": [
+          {
+            "name": "Все",
+            "link": "/tasks/fromme/all",
+            "childrenItems": []
+          },
+          {
+            "name": "Не выполнены",
+            "link": "/tasks/fromme/notfinished",
+            "childrenItems": []
+          },
+          {
+            "name": "Закрытые",
+            "link": "/tasks/fromme/closed",
+            "childrenItems": [
+              {
+                "name": "За ненадобностью",
+                "link": "/tasks/fromme/unnecessary",
+                "childrenItems": []
+              },
+              {
+                "name": "На паузе",
+                "link": "/tasks/fromme/paused",
+                "childrenItems": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Справочники",
+    "link": "/references",
+    "childrenItems": []
+  }
+]
