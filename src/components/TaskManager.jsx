@@ -8,9 +8,10 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import menu from "../mock-menu";
+import menu from "../mock-menu.json";
 import MainPage from "./MainPage";
 import References from "./References";
+import TaskList from "./TaskList";
 
 const styles = theme => ({
   taskmanager: {
@@ -64,6 +65,9 @@ class TaskManager extends Component {
               </Route>
               <Route exact path="/references">
                 <References/>
+              </Route>
+              <Route path="/tasks">
+                <TaskList/>
               </Route>
               <Redirect to="/"/>
             </Switch>
