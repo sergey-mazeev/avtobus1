@@ -67,10 +67,11 @@ class TaskManager extends Component {
               <Route exact path="/references">
                 <References/>
               </Route>
-              <Route path="/tasks">
-                <TaskList/>
-              </Route>
-              <Route path="/task" render={({location}) => <Task {...location.state} />} />
+              <Route path="/tasks" render={({location}) => {
+
+              }}/>
+              <Route path="/task" render={({location}) =>
+                <Task {...location.state} />}/>
 
               <Redirect to="/"/>
             </Switch>

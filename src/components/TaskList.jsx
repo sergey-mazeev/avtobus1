@@ -93,6 +93,7 @@ class TaskList extends Component {
   render() {
     const {classes} = this.props;
     const {tasks} = this.state;
+    console.log(this.props);
     return (
       <div className={classes.root}>
         <Filters updateFilters={this.updateFilters}/>
