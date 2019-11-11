@@ -28,12 +28,12 @@
             "childrenItems": [
               {
                 "name": "За ненадобностью",
-                "link": "/tasks/all/unnecessary",
+                "link": "/tasks/all/closed/unnecessary",
                 "childrenItems": []
               },
               {
                 "name": "На паузе",
-                "link": "/tasks/all/paused",
+                "link": "/tasks/all/closed/paused",
                 "childrenItems": []
               }
             ]
@@ -60,12 +60,12 @@
             "childrenItems": [
               {
                 "name": "За ненадобностью",
-                "link": "/tasks/mine/unnecessary",
+                "link": "/tasks/mine/closed/unnecessary",
                 "childrenItems": []
               },
               {
                 "name": "На паузе",
-                "link": "/tasks/mine/paused",
+                "link": "/tasks/mine/closed/paused",
                 "childrenItems": []
               }
             ]
@@ -92,12 +92,12 @@
             "childrenItems": [
               {
                 "name": "За ненадобностью",
-                "link": "/tasks/fromme/unnecessary",
+                "link": "/tasks/fromme/closed/unnecessary",
                 "childrenItems": []
               },
               {
                 "name": "На паузе",
-                "link": "/tasks/fromme/paused",
+                "link": "/tasks/fromme/closed/paused",
                 "childrenItems": []
               }
             ]

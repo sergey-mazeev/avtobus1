@@ -51,7 +51,7 @@ class TaskList extends Component {
     this.getTasks();
   }
 
-  updateFilters(textFilter, statusFilter, fromMeFilter, toMeFilter) {
+  updateFilters(textFilter, statusFilter, fromMeFilter, toMeFilter, closeReasonFilter) {
     let filteredTasks = tasks;
     if (textFilter.length > 0) {
       filteredTasks = filteredTasks.filter(({name}) => name.toLowerCase().includes(textFilter.toLowerCase()));
@@ -63,9 +63,15 @@ class TaskList extends Component {
     }
     if (fromMeFilter) {
       filteredTasks = filteredTasks.filter(({taskFromId}) => (taskFromId === "003"));
+      // Принимаю пользователя с id 003 за "себя"
     }
     if (toMeFilter) {
       filteredTasks = filteredTasks.filter(({taskToId}) => (taskToId === "003"));
+    }
+    if (closeReasonFilter) {
+      filteredTasks = filteredTasks.filter(({reasonForClosing}) => {
+        return reasonForClosing === closeReasonFilter;
+      });
     }
     this.setState(prevState => ({
       tasks: filteredTasks,
@@ -79,9 +85,7 @@ class TaskList extends Component {
       .then(() => {
         this.setState({copiedLink: resultLink});
       })
-      .catch(err => {
-        console.log('Ссылка не скопировалась', err);
-      });
+      .catch();
   }
 
   closeSnackbar() {
@@ -91,14 +95,14 @@ class TaskList extends Component {
   }
 
   render() {
-    const {classes} = this.props;
+    const {classes, location} = this.props;
     const {tasks} = this.state;
-    console.log(this.props);
     return (
       <div className={classes.root}>
-        <Filters updateFilters={this.updateFilters}/>
+        <Filters updateFilters={this.updateFilters} location={location}/>
         <ul className={classes.tasksList}>
-          {!tasks.length && <li>Нет задач, отвечающих выставленным фильтрам</li>}
+          {!tasks.length &&
+          <li>Нет задач, отвечающих выставленным фильтрам</li>}
           {tasks.map((el, index) => (
             <TaskListItem key={index} {...el} copyLink={this.copyLink}/>
           ))}

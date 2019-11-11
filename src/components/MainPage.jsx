@@ -19,14 +19,14 @@ export default () => (
     </Typography>
     <Typography paragraph>
       Выполнил соискатель на должность frontend-разработчика Мазеев Сергей Сергеевич
-      <ul>
-        <li>
-          <a href="tel:+79221346912">+7-922-134-6912 (tel, whatapp, telegram)</a>
-        </li>
-        <li>
-          <a href="mailto: sergey.mazeev@gmail.com">sergey.mazeev@gmail.com</a>
-        </li>
-      </ul>
     </Typography>
+    <ul>
+      <li>
+        <a href="tel:+79221346912">+7-922-134-6912 (tel, whatapp, telegram)</a>
+      </li>
+      <li>
+        <a href="mailto: sergey.mazeev@gmail.com">sergey.mazeev@gmail.com</a>
+      </li>
+    </ul>
   </article>
 )

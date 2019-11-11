@@ -28,9 +28,18 @@ const styles = theme => ({
     width: 200,
   },
   inputCheckbox: {
-    width: 120,
+    width: 140,
   }
 });
+
+const initialState = {
+  textFilter: "",
+  statusFilter: "all",
+  fromMeFilter: false,
+  toMeFilter: false,
+  closeReasonFilter: null,
+
+};
 
 class Filters extends Component {
   constructor(props) {
@@ -40,12 +49,56 @@ class Filters extends Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleCheckboxMineChange = this.handleCheckboxMineChange.bind(this);
-    this.state = {
-      textFilter: "",
-      statusFilter: "all",
-      fromMeFilter: false,
-      toMeFilter: false,
-    };
+
+    this.state = initialState;
+  }
+
+  componentDidMount() {
+    this.updateState();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!!prevProps.location && !!this.props.location &&
+      (prevProps.location.root !== this.props.location.root ||
+        prevProps.location.status !== this.props.location.status ||
+        prevProps.location.reason !== this.props.location.reason)) {
+      this.updateState();
+    }
+  }
+
+  updateState() {
+    const {root, status, reason} = this.props.location;
+    const {updateFilters} = this.props;
+    let newState = {...initialState};
+    if (root === "all") {
+      newState.statusFilter = "all";
+    }
+    else if (root === "fromme") {
+      newState.fromMeFilter = true;
+    }
+    else if (root === "mine") {
+      newState.toMeFilter = true;
+    }
+    if (status === "all") {
+      newState.statusFilter = "all";
+    }
+    else if (status === "notfinished") {
+      newState.statusFilter = "active";
+    }
+    else if (status === "closed") {
+      newState.statusFilter = "closed";
+    }
+    else if (status === "success") {
+      newState.statusFilter = "success";
+    }
+    if (reason === "paused") {
+      newState.closeReasonFilter = "paused";
+    }
+    else if (reason === "unnecessary") {
+      newState.closeReasonFilter = "unnecessary";
+    }
+    this.setState(newState);
+    setTimeout(() => {updateFilters("", newState.statusFilter, newState.fromMeFilter, newState.toMeFilter, newState.closeReasonFilter)}, 20);
   }
 
   textChange(event) {
@@ -104,6 +157,7 @@ class Filters extends Component {
               <MenuItem value="all">Все</MenuItem>
               <MenuItem value="active">Активные</MenuItem>
               <MenuItem value="success">Выполненные</MenuItem>
+              <MenuItem value="closed">Закрытые</MenuItem>
               <MenuItem value="pending">На паузе</MenuItem>
             </Select>
           </FormControl>

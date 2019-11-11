@@ -190,7 +190,7 @@ class MainMenu extends Component {
 
             return (
               <li key={index} className={classes.rootMenuItem}>
-                <Link to={link} className={classes.menuItemLink}>
+                <Link to={{pathname: link, state: {root: "all"}}} className={classes.menuItemLink}>
                   <Button className={classes.rootMenuItemButton}
                           color="default"
                           size="large"
@@ -206,9 +206,15 @@ class MainMenu extends Component {
                 })}>
                   {childrenItems.length > 0 &&
                   childrenItems.map(({name, link, childrenItems}, index) => {
+                    const location = {
+                      pathname: link,
+                      state: {
+                        root: link.slice(1).split('/')[1],
+                      }
+                    };
                     return (
                       <li key={`second-menu${index}`} className={classes.innerLevelListItem}>
-                        <Link to={link} className={classes.menuItemLink}>
+                        <Link to={location} className={classes.menuItemLink}>
                           <Button size="small" className={classes.secondLevelMenuButton}>
                             {name}
                           </Button>
@@ -229,10 +235,17 @@ class MainMenu extends Component {
                                 [classes.thirdMainMenuListVisible]: this.state[`third-${name}`],
                               })}>
                             {childrenItems.map(({name, link, childrenItems}, index) => {
-
+                              const pathArr = link.slice(1).split('/');
+                              const location = {
+                                pathname: link,
+                                state: {
+                                  root: pathArr[1],
+                                  status: pathArr[2],
+                                }
+                              };
                               return (
                                 <li key={`third-menu${index}`} className={classes.innerLevelListItem}>
-                                  <Link to={link} className={classes.menuItemLink}>
+                                  <Link to={location} className={classes.menuItemLink}>
                                     <Button size="small" className={classes.thirdLevelMenuButton}>
                                       {name}
                                     </Button>
@@ -250,13 +263,24 @@ class MainMenu extends Component {
                                     <ul className={clsx(classes.fourthMainMenuList, {
                                       [classes.fourthMainMenuListVisible]: this.state[`fourth-${name}`],
                                     })}>
-                                      {childrenItems.map(({name, link}, index) => (
-                                        <li key={`fourth-menu${index}`}>
-                                          <Link to={link} className={classes.menuItemLink}>
-                                            <Button className={classes.fourthLevelMenuButton} size="small" color="default">{name}</Button>
-                                          </Link>
-                                        </li>
-                                      ))}
+                                      {childrenItems.map(({name, link}, index) => {
+                                        const pathArr = link.slice(1).split('/');
+                                        const location = {
+                                          pathname: link,
+                                          state: {
+                                            root: pathArr[1],
+                                            status: pathArr[2],
+                                            reason: pathArr[3],
+                                          }
+                                        };
+                                        return (
+                                          <li key={`fourth-menu${index}`}>
+                                            <Link to={location} className={classes.menuItemLink}>
+                                              <Button className={classes.fourthLevelMenuButton} size="small" color="default">{name}</Button>
+                                            </Link>
+                                          </li>
+                                        )
+                                      })}
                                     </ul>
                                   </>
                                   }

@@ -68,7 +68,8 @@ class TaskManager extends Component {
                 <References/>
               </Route>
               <Route path="/tasks" render={({location}) => {
-
+                const {state} = location;
+                return (<TaskList location={state}/>)
               }}/>
               <Route path="/task" render={({location}) =>
                 <Task {...location.state} />}/>

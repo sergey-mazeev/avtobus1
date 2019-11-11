@@ -99,7 +99,10 @@ class Task extends Component {
               </Avatar>
             }
             action={
-              <Link to="/tasks" className={classes.link}>
+              <Link to={{
+                pathname: "/tasks",
+                state: {root: "all"}
+              }} className={classes.link}>
                 <Button size="small" variant="contained" color="primary">
                   Назад к списку
                 </Button>
@@ -117,6 +120,8 @@ class Task extends Component {
               <ListItem className={classes.listItem}>Постановщик задачи: {task.taskFromName}
               </ListItem>
               <ListItem className={classes.listItem}>Ответственный: {task.taskToName}</ListItem>
+              {!!task.reasonForClosing &&
+              <ListItem className={classes.listItem}>Причина закрытия: {task.reasonForClosing === "paused" ? "на паузе" : "за ненадобностью"}</ListItem>}
             </List>
             <Typography variant="body2" color="textSecondary" component="p" gutterBottom>
               {task.textShort}
