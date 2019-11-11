@@ -71,6 +71,10 @@ class TaskListItem extends Component {
     const {expanded} = this.state;
     const {classes, id, name, dateEnd, taskToName, textShort, text, status, copyLink} = this.props;
     const taskLink = `/task/${id}`;
+    const location = {
+      pathname: taskLink,
+      state: {taskId: id},
+    };
     let statusIcon;
     if (status === "success") {
       statusIcon = <DoneIcon/>;
@@ -100,7 +104,7 @@ class TaskListItem extends Component {
               </Avatar>
             }
             action={
-              <Link to={taskLink} className={classes.link}>
+              <Link to={location} className={classes.link}>
                 <Button size="small" variant="contained" color="primary">
                   Перейти к задаче
                 </Button>

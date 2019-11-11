@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import TaskListItem from "./TaskListItem";
 //import fetch from 'isomorphic-fetch';
-import Snackbar from "@material-ui/core/Snackbar";
-import {withStyles} from "@material-ui/core";
+import {Snackbar, withStyles} from "@material-ui/core";
 import tasks from "../mock-tasks";
+import Filters from "./Filters";
 
 const styles = theme => ({
   root: {},
@@ -26,6 +26,7 @@ class TaskList extends Component {
     this.props = props;
     this.state = initialState;
     this.copyLink = this.copyLink.bind(this);
+    this.updateFilters = this.updateFilters.bind(this);
   }
 
   getTasks() {
@@ -48,6 +49,27 @@ class TaskList extends Component {
 
   componentDidMount() {
     this.getTasks();
+  }
+
+  updateFilters(textFilter, statusFilter, fromMeFilter, toMeFilter) {
+    let filteredTasks = tasks;
+    if (textFilter.length > 0) {
+      filteredTasks = filteredTasks.filter(({name}) => name.toLowerCase().includes(textFilter.toLowerCase()));
+    }
+    if (statusFilter !== "all") {
+      filteredTasks = filteredTasks.filter(({status}) => {
+        return status === statusFilter;
+      });
+    }
+    if (fromMeFilter) {
+      filteredTasks = filteredTasks.filter(({taskFromId}) => (taskFromId === "003"));
+    }
+    if (toMeFilter) {
+      filteredTasks = filteredTasks.filter(({taskToId}) => (taskToId === "003"));
+    }
+    this.setState(prevState => ({
+      tasks: filteredTasks,
+    }))
   }
 
   copyLink(link) {
@@ -73,8 +95,9 @@ class TaskList extends Component {
     const {tasks} = this.state;
     return (
       <div className={classes.root}>
-        Место для фильтров
+        <Filters updateFilters={this.updateFilters}/>
         <ul className={classes.tasksList}>
+          {!tasks.length && <li>Нет задач, отвечающих выставленным фильтрам</li>}
           {tasks.map((el, index) => (
             <TaskListItem key={index} {...el} copyLink={this.copyLink}/>
           ))}

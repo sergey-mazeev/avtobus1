@@ -12,6 +12,7 @@ import menu from "../mock-menu.json";
 import MainPage from "./MainPage";
 import References from "./References";
 import TaskList from "./TaskList";
+import Task from "./Task";
 
 const styles = theme => ({
   taskmanager: {
@@ -69,6 +70,8 @@ class TaskManager extends Component {
               <Route path="/tasks">
                 <TaskList/>
               </Route>
+              <Route path="/task" render={({location}) => <Task {...location.state} />} />
+
               <Redirect to="/"/>
             </Switch>
           </main>
