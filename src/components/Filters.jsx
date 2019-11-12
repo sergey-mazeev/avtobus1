@@ -32,19 +32,20 @@ const styles = theme => ({
   }
 });
 
+// Состояние фильтров по умолчанию
 const initialState = {
   textFilter: "",
   statusFilter: "all",
   fromMeFilter: false,
   toMeFilter: false,
   closeReasonFilter: null,
-
 };
 
 class Filters extends Component {
   constructor(props) {
     super(props);
     this.props = props;
+    // Биндим методы изменения полей
     this.textChange = this.textChange.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -53,10 +54,13 @@ class Filters extends Component {
     this.state = initialState;
   }
 
+  // При загрузке компонента - обновляем состояние
   componentDidMount() {
     this.updateState();
   }
 
+  // При обновлении свойст или состояния компонента - запускаем метод обновления состояния
+  // Применено guard expression для остановки рекурсии
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (!!prevProps.location && !!this.props.location &&
       (prevProps.location.root !== this.props.location.root ||
@@ -66,6 +70,7 @@ class Filters extends Component {
     }
   }
 
+  // Метод обновления состояния. Собирает новое состояние в зависимости от адреса (переданного в props location)
   updateState() {
     const {root, status, reason} = this.props.location;
     const {updateFilters} = this.props;
@@ -97,10 +102,14 @@ class Filters extends Component {
     else if (reason === "unnecessary") {
       newState.closeReasonFilter = "unnecessary";
     }
+
+    // обновляем состояние
     this.setState(newState);
+    // Запускаем метод обновления фильтров с таймаутом для того, чтобы успевало обновиться состояние родительского компонента
     setTimeout(() => {updateFilters("", newState.statusFilter, newState.fromMeFilter, newState.toMeFilter, newState.closeReasonFilter)}, 20);
   }
 
+  // Ниже - обработчики обновения полей фильтров. Обрабатывают изменения, записывают изменения в state, запускают обновление фильтров родительского компонента
   textChange(event) {
     const {updateFilters} = this.props;
     const {statusFilter, fromMeFilter, toMeFilter} = this.state;

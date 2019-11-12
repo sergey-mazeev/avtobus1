@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 
+// Компонент главной страницы приложения
 export default () => (
   <article>
     <Typography paragraph>

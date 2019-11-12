@@ -15,6 +15,7 @@ const styles = theme => ({
   },
 });
 
+// состояние по умолчанию
 const initialState = {
   copiedLink: null,
   tasks: [],
@@ -25,12 +26,13 @@ class TaskList extends Component {
     super(props);
     this.props = props;
     this.state = initialState;
+    // биндим методы для использования в дочерних компонентах
     this.copyLink = this.copyLink.bind(this);
     this.updateFilters = this.updateFilters.bind(this);
   }
 
+  //Метод получения списка тасков. На живом проекте предполагается обращение к API
   getTasks() {
-
     this.setState({
       tasks: tasks,
     })
@@ -47,10 +49,12 @@ class TaskList extends Component {
       .catch(reason => console.warn(reason))*/
   }
 
+  // При загрузке компонета запускаем метод получения задач
   componentDidMount() {
     this.getTasks();
   }
 
+  // метод обновления списка задач, согласно установленных фильтров. Принимает значения фильтров и с помощью filter фильтрует массив по указанным правилам
   updateFilters(textFilter, statusFilter, fromMeFilter, toMeFilter, closeReasonFilter) {
     let filteredTasks = tasks;
     if (textFilter.length > 0) {
@@ -73,11 +77,13 @@ class TaskList extends Component {
         return reasonForClosing === closeReasonFilter;
       });
     }
-    this.setState(prevState => ({
+    // Записываем отфильтрованный список задач в состояние компонента
+    this.setState(() => ({
       tasks: filteredTasks,
     }))
   }
 
+  // Метод копирования ссылки на задачу
   copyLink(link) {
     const base = window.location.origin;
     const resultLink = base + link;
@@ -88,6 +94,7 @@ class TaskList extends Component {
       .catch();
   }
 
+  // Метод закрытия всплывашки с сообщением о копировании ссылки, обновляет состояние компонента.
   closeSnackbar() {
     this.setState({
       copiedLink: null,
@@ -99,14 +106,19 @@ class TaskList extends Component {
     const {tasks} = this.state;
     return (
       <div className={classes.root}>
+        {/*Передаем как свойства метод обновления фильтров и location в компонент Filter*/}
+        {/*location передается для фильтрации в зависимости от выбранного пункта меню*/}
         <Filters updateFilters={this.updateFilters} location={location}/>
         <ul className={classes.tasksList}>
+          {/*Если задач нет*/}
           {!tasks.length &&
           <li>Нет задач, отвечающих выставленным фильтрам</li>}
-          {tasks.map((el, index) => (
+          {/*Если задачи есть - рендерим компонент TaskListItem для каждой задачи*/}
+          {tasks.length > 0 && tasks.map((el, index) => (
             <TaskListItem key={index} {...el} copyLink={this.copyLink}/>
           ))}
         </ul>
+        {/*Компонент всплывашки с сообщением о копировании ссылки*/}
         <Snackbar
           open={!!this.state.copiedLink}
           anchorOrigin={{

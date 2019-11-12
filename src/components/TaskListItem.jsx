@@ -60,6 +60,7 @@ class TaskListItem extends Component {
     }
   }
 
+  // метод обработки сворачивания/разворачивания информации о задаче. Устанавливает ключ `expanded` в соответствующее состояние (булевое значение)
   handleExpandClick() {
     this.setState(prevState => ({
       expanded: !prevState.expanded,
@@ -70,11 +71,13 @@ class TaskListItem extends Component {
 
     const {expanded} = this.state;
     const {classes, id, name, dateEnd, taskToName, textShort, text, status, copyLink} = this.props;
+    // Сборка ссылки на задачу
     const taskLink = `/task/${id}`;
     const location = {
       pathname: taskLink,
       state: {taskId: id},
     };
+    // Выбираем иконку для статуса
     let statusIcon;
     if (status === "success") {
       statusIcon = <DoneIcon/>;
@@ -93,6 +96,7 @@ class TaskListItem extends Component {
       <li className={classes.root}>
         <Card>
           <CardHeader
+            // Цвет иконки статуса
             avatar={
               <Avatar className={clsx({
                 [classes.statusSuccess]: status === "success",

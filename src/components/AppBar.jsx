@@ -34,6 +34,7 @@ const styles = theme => ({
   },
 });
 
+// т.к. у AppBar нет своих методов и состояния, создаем его как функциональный компонент (функция, не класс)
 const AppBar = (props) => {
   const {classes} = props;
   const open = props.sidebarOpen;
@@ -50,8 +51,10 @@ const AppBar = (props) => {
           <IconButton
             color="inherit"
             aria-label="open drawer"
+            // при клике по иконке сворачивания меню запускаем метод родительского компонента, переданный через свойства
             onClick={() => {props.toggleSidebar()}}
             edge="start"
+            // clsx позволяет использовать условия при добавлении css классов
             className={clsx(classes.menuButton, {
               [classes.hide]: open,
             })}

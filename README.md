@@ -13,3 +13,13 @@
 ### `npm run build`
 
 Собирает приложение в "production" режиме в папку `build`.
+
+### Структура БД
+- id — BIGINT UNSIGNED
+- name — string
+- textShort — string
+- text — TEXT
+- taskFromId - BIGINT UNSIGNED
+- taskToId — BIGINT UNSIGNED
+- dateStart — TIMESTAMP
+- dateEnd — TIMESTAMP

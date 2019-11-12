@@ -51,6 +51,7 @@ class Task extends Component {
     this.state = {};
   }
 
+  // Метод получения данных о задаче. В живом проекте предполагается обращение к API
   getTaskInfo() {
     const {taskId} = this.props;
     // здесь нужно сделать fetch с сервера
@@ -60,6 +61,7 @@ class Task extends Component {
     })
   }
 
+  // При загрузке компонента запускаем метод получения информации о задаче.
   componentDidMount() {
     this.getTaskInfo();
   }
@@ -67,6 +69,7 @@ class Task extends Component {
   render() {
     const {classes} = this.props;
     const {task} = this.state;
+    // Устанавливаем иконку в зависимости от статуса
     let statusIcon;
     if (task) {
       if (task.status === "success") {
@@ -84,10 +87,13 @@ class Task extends Component {
     }
     return (
       <div className={classes.task}>
+        {/*Если информация о задаче не получена*/}
         {!task && <p>Информация о задаче загружается</p>}
+        {/*Если информация о задаче получена - рендерим её разметку*/}
         {task &&
         <Card>
           <CardHeader
+            // Использую свой цвет для каждого статуса задачи
             avatar={
               <Avatar className={clsx({
                 [classes.statusSuccess]: task.status === "success",
@@ -98,6 +104,7 @@ class Task extends Component {
                 {statusIcon}
               </Avatar>
             }
+            // Ссылка на список задач
             action={
               <Link to={{
                 pathname: "/tasks",

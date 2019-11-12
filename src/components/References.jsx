@@ -1,7 +1,8 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 
-export default (props) => {
+// Компонент страницы справочников
+export default () => {
   return (
     <article>
       <Typography variant="h4" gutterBottom>

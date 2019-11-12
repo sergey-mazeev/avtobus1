@@ -156,6 +156,9 @@ class MainMenu extends Component {
     this.state = {};
   }
 
+  // метод разворачивания меню. Принимает название пункта меню и
+  // создает/изменяет соответствующий ключ в state. Значение - булевое: true -
+  // развернут, false - свернут
   handleToggle(item) {
     this.setState(prevState => ({
       [item]: !prevState[item],
@@ -163,8 +166,12 @@ class MainMenu extends Component {
   }
 
   render() {
+    // достаем из props информацию о стилях, развернут или свернут сайдбар,
+    // тестовые данные для меню (переданы из родительского компонента)
     const {classes, open, menu} = this.props;
     return (
+      // с помощью clsx добавляем класс `mainMenuOpened` только если сайдбар
+      // развернут
       <nav className={clsx(
         classes.mainMenu,
         {
@@ -172,8 +179,10 @@ class MainMenu extends Component {
         }
       )}>
         <ul className={classes.mainMenuList}>
+          {/*Проходим по первому уровню меню, рендерим верхний уровень меню.*/}
+          {/*Функцию генерации всего меню можно было сделать красивой рекурсивной, не сделал этого ради более приятной стилизации*/}
           {menu.map(({name, link, childrenItems}, index) => {
-
+            // используем свою иконку для каждого элемента меню верхнего уровня
             let icon;
             if (index === 0) {
               icon =
@@ -187,10 +196,14 @@ class MainMenu extends Component {
               icon =
                 <BookIcon className={classes.rootMenuItemIcon} color="primary"/>;
             }
-
+            // возвращаем из map разметку элемента меню
             return (
               <li key={index} className={classes.rootMenuItem}>
-                <Link to={{pathname: link, state: {root: "all"}}} className={classes.menuItemLink}>
+                {/*Передаем компоненту Link из react-router целевой путь и свойства state для компонента Route*/}
+                <Link to={{
+                  pathname: link,
+                  state: {root: "all"}
+                }} className={classes.menuItemLink}>
                   <Button className={classes.rootMenuItemButton}
                           color="default"
                           size="large"
@@ -200,6 +213,8 @@ class MainMenu extends Component {
                     {name}
                   </Button>
                 </Link>
+                {/*Если у элемента меню есть дочерние элементы - запускаем рендеринг для них*/}
+                {/*Дальще идет однотипный рендеринг для вложенных пунктов меню*/}
                 {childrenItems.length > 0 &&
                 <ul className={clsx(classes.secondMainMenuList, {
                   [classes.secondMainMenuListVisible]: open,
